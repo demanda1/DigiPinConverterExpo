@@ -1,0 +1,94 @@
+apply plugin: "com.android.application"
+apply plugin: "com.facebook.react"
+
+def enableProguardInReleaseBuilds = true
+
+android {
+    ndkVersion rootProject.ext.ndkVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    namespace "com.digipin.navigator"
+
+    defaultConfig {
+        applicationId "com.digipin.navigator"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("digipin-release-key.keystore")
+            storePassword "digipin123"
+            keyAlias "digipin-key-alias"
+            keyPassword "digipin123"
+        }
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            universalApk false
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            project.ext.react = [
+                enableHermes: true
+            ]
+            crunchPngs true
+            zipAlignEnabled true
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+        }
+    }
+
+    bundle {
+        language {
+            enableSplit = true
+        }
+        density {
+            enableSplit = true
+        }
+        abi {
+            enableSplit = true
+        }
+    }
+}
+
+dependencies {
+    implementation("com.facebook.react:react-android")
+    implementation("com.facebook.react:hermes-android")
+
+    def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true"
+    def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true"
+    def isWebpAnimatedEnabled = (findProperty('expo.webp.animated') ?: "") == "true"
+
+    if (isGifEnabled || isWebpEnabled) {
+        implementation("com.facebook.fresco:fresco:2.5.0")
+        implementation("com.facebook.fresco:imagepipeline-okhttp3:2.5.0")
+    }
+
+    if (isGifEnabled) {
+        implementation("com.facebook.fresco:animated-gif:2.5.0")
+    }
+
+    if (isWebpEnabled) {
+        implementation("com.facebook.fresco:webpsupport:2.5.0")
+        if (isWebpAnimatedEnabled) {
+            implementation("com.facebook.fresco:animated-webp:2.5.0")
+        }
+    }
+} 

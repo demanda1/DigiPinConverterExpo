@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1242" height="2436" viewBox="0 0 1242 2436" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1242" y2="2436" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#007AFF"/>
+      <stop offset="100%" stop-color="#34C759"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1242" height="2436" fill="url(#bg)"/>
+
+  <!-- Main location marker -->
+  <g transform="translate(421, 968)" fill="#FF3B30">
+    <path d="M200 0C89.6 0 0 89.6 0 200C0 311.2 200 500 200 500C200 500 400 311.2 400 200C400 89.6 310.4 0 200 0ZM200 270C161.6 270 130 238.4 130 200C130 161.6 161.6 130 200 130C238.4 130 270 161.6 270 200C270 238.4 238.4 270 200 270Z"/>
+  </g>
+
+  <!-- App Name -->
+  <text x="621" y="1600" 
+        font-family="Arial-BoldMT, Arial" 
+        font-weight="bold" 
+        font-size="80" 
+        fill="white" 
+        text-anchor="middle">
+    DIGIPIN NAVIGATOR
+  </text>
+</svg> 
